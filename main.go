@@ -1,4 +1,4 @@
-package main
+package bool2gray
 
 import (
 	"image"
