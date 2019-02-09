@@ -1,3 +1,6 @@
+/*
+bool2gray converts a two-dimensional bool slice to a gray scale image.
+*/
 package bool2gray
 
 import (
