@@ -2,6 +2,9 @@ package bool2gray
 
 import (
 	"image"
+	"image/png"
+	"log"
+	"os"
 	"reflect"
 	"testing"
 )
@@ -85,5 +88,52 @@ func TestEnlargeX2(t *testing.T) {
 
 	if !reflect.DeepEqual(actueal, expected) {
 		t.Fatalf("failed test\nexpected: %#v\nactual: %#v", expected, actueal)
+	}
+}
+
+func ExampleDo() {
+	in := [][]bool{
+		{true, false},
+		{false, true},
+	}
+
+	img := Do(in)
+
+	file, err := os.Create("sample.png")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	if err := png.Encode(file, img); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func ExampleEnlarge() {
+	in := [][]bool{
+		{true, false},
+		{false, true},
+	}
+	e := 5
+
+	img := Enlarge(in, e)
+
+	file, err := os.Create("sample.png")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	if err := png.Encode(file, img); err != nil {
+		log.Fatal(err)
 	}
 }
